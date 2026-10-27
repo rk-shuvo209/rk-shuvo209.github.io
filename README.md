@@ -21,24 +21,19 @@ python -m http.server 8000
 
 Then visit http://localhost:8000
 
-## Deploy to GitHub Pages
+## Live site
 
-1. Create an empty repository on GitHub (e.g. `rash-kanto-portfolio`).
-2. From this folder:
+Deployed with GitHub Pages at **https://rk-shuvo209.github.io/**
 
-   ```powershell
-   git remote add origin https://github.com/<your-username>/rash-kanto-portfolio.git
-   git add .
-   git commit -m "Initial commit"
-   git push -u origin main
-   ```
+Repository: https://github.com/rk-shuvo209/rk-shuvo209.github.io
 
-3. On GitHub: **Settings → Pages → Build and deployment**
-   - Source: **Deploy from a branch**
-   - Branch: **main** / folder: **/ (root)**
-4. Site goes live at `https://<your-username>.github.io/rash-kanto-portfolio/`.
+To publish updates:
 
-For a custom domain, add a `CNAME` file containing the domain and configure DNS with your provider.
+```powershell
+git add .
+git commit -m "Update site"
+git push
+```
 
 ## Notes
 

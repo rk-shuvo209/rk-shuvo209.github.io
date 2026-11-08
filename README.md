@@ -35,6 +35,26 @@ git commit -m "Update site"
 git push
 ```
 
+## Writing posts (Astro content collection)
+
+Posts are Markdown files in `src/content/posts/`.
+
+Create a new post:
+
+```powershell
+.\new-post.ps1 -Title "My New Post" -Excerpt "Short summary" -Tag "SEO"
+```
+
+Then edit `src/content/posts/<slug>.md`. Commit and push; GitHub Actions builds and deploys.
+
+Delete a post:
+
+```powershell
+.\delete-post.ps1
+```
+
+Pick the number of the post to delete and confirm.
+
 ## Notes
 
 - No framework, bundler, or npm install required.

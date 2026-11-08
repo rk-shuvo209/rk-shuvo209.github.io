@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{post.data.title} | Rash Kanto</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .post-wrap { max-width: 780px; margin: 0 auto; padding: 120px 24px 80px; }
+  .post-back { display: inline-block; margin-bottom: 32px; color: #c9a96e; text-decoration: none; font-weight: 600; }
+  .post-title { font-family: 'Outfit', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: 1.1; margin: 0 0 12px; }
+  .post-date { color: #888; font-size: 14px; margin-bottom: 40px; }
+  .post-body { line-height: 1.7; font-size: 17px; }
+  .post-body h1, .post-body h2, .post-body h3 { font-family: 'Outfit', sans-serif; margin: 2em 0 .6em; }
+  .post-body p { margin: 0 0 1.2em; }
+  .post-body ul, .post-body ol { margin: 0 0 1.2em 1.4em; }
+  .post-body li { margin-bottom: .4em; }
+  .post-body code { background: #1a1a1a; padding: 2px 6px; border-radius: 4px; font-size: .9em; }
+  .post-body pre { background: #1a1a1a; padding: 16px; border-radius: 8px; overflow-x: auto; }
+  .post-body blockquote { border-left: 3px solid #c9a96e; padding-left: 16px; color: #aaa; margin: 1.2em 0; }
+</style>
+</head>
+<body>
+<div class="post-wrap">
+  <a href="/#blog" class="post-back">&larr; Back to Insights</a>
+  <h1 class="post-title">{post.data.title}</h1>
+  <div class="post-date">{post.data.date}</div>
+  <div class="post-body">
+    <Content />
+  </div>
+</div>
+</body>
+</html>

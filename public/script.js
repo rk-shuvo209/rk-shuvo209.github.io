@@ -92,3 +92,4 @@ const obs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.07 });
 document.querySelectorAll('.rr').forEach(el => obs.observe(el));
+

@@ -1,3 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('posts')).sort((a, b) =>
+  (b.data.pubDate?.getTime() ?? 0) - (a.data.pubDate?.getTime() ?? 0)
+);
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
@@ -700,53 +706,22 @@
       <a href="mailto:rk.shuvo209@gmail.com" class="btn btn-ghost">Get in Touch &#8594;</a>
     </div>
 
-    <div class="blog-grid">
-
-      <div class="bcard">
-        <div class="bcard-img" style="background: linear-gradient(140deg, #0e1a18 0%, #0c0c0a 100%);">
-          <svg width="100%" height="100%" viewBox="0 0 420 185" preserveAspectRatio="none" aria-hidden="true">
-            <text x="50%" y="52%" font-family="Outfit,sans-serif" font-size="38" font-weight="800" fill="#c9a96e" fill-opacity="0.15" text-anchor="middle" dominant-baseline="middle" letter-spacing="-2">CTR</text>
-            <text x="50%" y="78%" font-family="Outfit,sans-serif" font-size="14" fill="#c9a96e" fill-opacity="0.3" text-anchor="middle" letter-spacing="4" font-weight="500">SIGNALS</text>
-          </svg>
-        </div>
-        <div class="bcard-body">
-          <div class="bcard-date">February 2025</div>
-          <h3>How to Find Your Best CTR Opportunities in Google Search Console</h3>
-          <p>Most sites have hundreds of pages ranking on page one with almost no clicks. Here is the step-by-step method for identifying and fixing them quickly.</p>
-          <div class="bcard-link">Read Insight &#8594;</div>
-        </div>
-      </div>
-
-      <div class="bcard">
-        <div class="bcard-img" style="background: linear-gradient(140deg, #16140e 0%, #0c0c0a 100%);">
-          <svg width="100%" height="100%" viewBox="0 0 420 185" preserveAspectRatio="none" aria-hidden="true">
-            <text x="50%" y="52%" font-family="Outfit,sans-serif" font-size="28" font-weight="800" fill="#c9a96e" fill-opacity="0.15" text-anchor="middle" dominant-baseline="middle" letter-spacing="-1">CONTENT</text>
-            <text x="50%" y="72%" font-family="Outfit,sans-serif" font-size="28" font-weight="800" fill="#c9a96e" fill-opacity="0.1" text-anchor="middle" dominant-baseline="middle" letter-spacing="-1">CLUSTERS</text>
-          </svg>
-        </div>
-        <div class="bcard-body">
-          <div class="bcard-date">January 2025</div>
-          <h3>Building a Content Cluster Strategy That Actually Earns Rankings</h3>
-          <p>Content clustering is one of the most misunderstood tactics in SEO. Done correctly, it reduces keyword cannibalization and signals clear topical authority to Google.</p>
-          <div class="bcard-link">Read Insight &#8594;</div>
-        </div>
-      </div>
-
-      <div class="bcard">
-        <div class="bcard-img" style="background: linear-gradient(140deg, #0e100e 0%, #0c0c0a 100%);">
-          <svg width="100%" height="100%" viewBox="0 0 420 185" preserveAspectRatio="none" aria-hidden="true">
-            <text x="50%" y="46%" font-family="Outfit,sans-serif" font-size="22" font-weight="800" fill="#c9a96e" fill-opacity="0.15" text-anchor="middle" dominant-baseline="middle" letter-spacing="2">AI SEARCH</text>
-            <text x="50%" y="68%" font-family="Outfit,sans-serif" font-size="22" font-weight="800" fill="#c9a96e" fill-opacity="0.1" text-anchor="middle" dominant-baseline="middle" letter-spacing="2">AND SEO</text>
-          </svg>
-        </div>
-        <div class="bcard-body">
-          <div class="bcard-date">December 2024</div>
-          <h3>Why Technical SEO Still Matters in the Age of AI Overviews</h3>
-          <p>Some people believe AI-generated results are making traditional SEO irrelevant. Here is why the technical foundation matters more than ever and what to prioritise right now.</p>
-          <div class="bcard-link">Read Insight &#8594;</div>
-        </div>
-      </div>
-
+    <div class="blog-grid" id="blogGrid">
+      {posts.map((post) => (
+        <a class="bcard" href={`/posts/${post.slug}`} style="text-decoration:none;color:inherit;display:block;">
+          <div class="bcard-img" style={`background: ${post.data.gradient ?? 'linear-gradient(140deg, #0e1a18 0%, #0c0c0a 100%)'};`}>
+            <svg width="100%" height="100%" viewBox="0 0 420 185" preserveAspectRatio="none" aria-hidden="true">
+              <text x="50%" y="52%" font-family="Outfit,sans-serif" font-size="28" font-weight="800" fill="#c9a96e" fill-opacity="0.15" text-anchor="middle" dominant-baseline="middle" letter-spacing="-1">{post.data.tag ?? 'INSIGHT'}</text>
+            </svg>
+          </div>
+          <div class="bcard-body">
+            <div class="bcard-date">{post.data.date}</div>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.excerpt}</p>
+            <div class="bcard-link">Read Insight &#8594;</div>
+          </div>
+        </a>
+      ))}
     </div>
   </div>
 </section>
@@ -795,7 +770,6 @@
       </p>
       <div class="socials">
         <a href="https://www.linkedin.com/in/rkshuvo209/" target="_blank" class="soc" title="LinkedIn">in</a>
-        <a href="https://rash-kanto.netlify.app/" target="_blank" class="soc" title="Portfolio">&#9632;</a>
         <a href="mailto:rk.shuvo209@gmail.com" class="soc" title="Email">@</a>
       </div>
     </div>
@@ -828,7 +802,6 @@
         <li><a href="mailto:rk.shuvo209@gmail.com">rk.shuvo209@gmail.com</a></li>
         <li><a href="tel:+8801305080194">+880 1305080194</a></li>
         <li><a href="#">Gulshan 2, Dhaka 1212</a></li>
-        <li><a href="https://rash-kanto.netlify.app/" target="_blank">rash-kanto.netlify.app</a></li>
       </ul>
     </div>
   </div>
@@ -839,6 +812,7 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="/script.js" is:inline></script>
 </body>
 </html>
+

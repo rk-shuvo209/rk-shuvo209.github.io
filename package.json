@@ -1,0 +1,14 @@
+{
+  "name": "rk-shuvo209-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "new-post": "powershell -ExecutionPolicy Bypass -File new-post.ps1"
+  },
+  "dependencies": {
+    "astro": "^4.16.0"
+  }
+}
